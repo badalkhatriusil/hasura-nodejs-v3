@@ -1,0 +1,34 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- -- CREATE TABLE IF NOT EXISTS public.nearby_user_type (
+-- --   user_id uuid,
+-- --     first_name text,
+-- --     last_name text,
+-- --     gender text,
+-- --     lat real,
+-- --     long real
+-- -- );
+--
+-- DROP FUNCTION IF EXISTS public.nearby_user;
+--
+-- -- CREATE
+-- -- OR REPLACE FUNCTION public.nearby_user(userid uuid, distance_kms integer) RETURNS SETOF nearby_user_type LANGUAGE sql STABLE AS $ function $ (
+-- --   SELECT
+-- --     u.id as user_id,
+-- --     u.first_name,
+-- --     u.last_name,
+-- --     u.gender,
+-- --     ut.lat,
+-- --     ut.long
+-- --   FROM
+-- --     public.user u
+-- --     LEFT JOIN public.user_tracking ut ON u.id = ut.user_id
+-- --   where
+-- --     (
+-- --       6371 * acos(
+-- --         cos(radians(23.0576179)) * cos(radians(lat)) * cos(
+-- --           radians(long) - radians(72.5444671)
+-- --         ) + sin(radians(23.0576179)) * sin(radians(lat))
+-- --       )
+-- --     ) < distance_kms
+-- -- ) $ function $;
